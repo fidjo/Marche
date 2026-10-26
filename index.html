@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="fr"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="manifest" href="manifest.webmanifest"><meta name="theme-color" content="#2e7d5b"><link rel="icon" href="icons/icon-192.png"><title>Mon programme marche</title>
+<style>
+:root{--bg:#f6f7f4;--card:#fff;--tx:#1d2b24;--mu:#66756c;--ac:#2e7d5b;--ln:#dfe5e0;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#121915;--card:#1b251f;--tx:#e8efe9;--mu:#9bab9f;--ac:#4cc08b;--ln:#2c3a31}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--tx);font:16px/1.45 system-ui,sans-serif;padding:14px;max-width:560px;margin:auto}
+h1{font-size:1.3rem;margin:4px 0 2px}.mu{color:var(--mu);font-size:.9rem}
+.card{background:var(--card);border:1px solid var(--ln);border-radius:14px;padding:14px;margin:12px 0}
+button{font:inherit;border:0;border-radius:10px;padding:11px 14px;background:var(--ac);color:#fff;cursor:pointer}
+button.s{background:transparent;color:var(--ac);border:1px solid var(--ac)}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.wk{display:flex;gap:6px;overflow-x:auto;padding-bottom:6px}
+.wk button{flex:0 0 auto;padding:8px 12px;background:var(--card);color:var(--tx);border:1px solid var(--ln)}
+.wk button.on{background:var(--ac);color:#fff;border-color:var(--ac)}.wk button.ok{border-color:var(--ac)}
+table{width:100%;border-collapse:collapse;font-size:.95rem}td,th{padding:6px 4px;border-bottom:1px solid var(--ln);text-align:left}
+.big{font-size:3rem;font-weight:700;text-align:center;margin:4px 0}
+.ses{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid var(--ln)}
+select,input{font:inherit;padding:8px;border-radius:8px;border:1px solid var(--ln);background:var(--bg);color:var(--tx)}
+.warn{font-size:.85rem;color:var(--mu)}
+</style></head><body>
+<h1>🚶 Mon programme marche</h1>
+<div class="mu">12 semaines · 3 marches + séances douces facultatives · 0 % d’inclinaison</div>
+<div class="wk" id="wk"></div>
+<div class="card" id="plan"></div>
+<div class="card" id="timer" hidden></div>
+<div class="card"><b>Poids hebdomadaire</b>
+<div class="row" style="margin-top:8px"><input id="kg" type="number" step="0.1" placeholder="kg" style="width:90px"><button onclick="addW()">Ajouter</button></div>
+<div class="mu" id="wl" style="margin-top:8px"></div></div>
+<div class="card warn">Arrêtez la séance en cas de douleur articulaire nouvelle ou croissante, de palpitations, de vertiges ou d’essoufflement anormal. Douleur thoracique ou malaise : appelez le 15 ou le 112. Faites valider ce programme par votre médecin ou kinésithérapeute. Rester à la même semaine est toujours permis : ce n’est pas un échec.</div>
+<script>
+const M=[[3,0],[4,2],[5,3],[4,2],[6,4],[7,5],[8,6],[6,4],[8,7],[9,8],[10,9],[11,10]];
+const LIGHT=[4,8];
+const fr=x=>String(x).replace(".",",");
+function walk(w){const [a,b]=M[w-1];const sa=w<=7?2:2.2,sb=w<=5?2.2:w<=8?2.4:w<=10?2.5:2.7;
+const r=[["Échauffement",2,"Réglez le tapis à 1,5 km/h"],["Marche tranquille",a,"Réglez le tapis à "+fr(sa)+" km/h"]];
+if(b)r.push(["Marche confortable",b,"Réglez le tapis à "+fr(sb)+" km/h"]);r.push(["Retour au calme",2,"Réglez le tapis à 1,5 km/h"]);return r}
+function mob(w){const r=[["Respiration calme (assis)",1,"Inspirez 4 s par le nez, expirez 6 s, dos soutenu."],["Chevilles",1,"Cercles lents, amplitude confortable, des deux côtés."],["Genoux assis",1,"Montées de genoux alternées, sans balancer."],["Épaules",1,"Petits cercles lents, sans aller en fin de course."],["Cou et dos",1,"Mouvement très doux, sans étirement forcé."]];
+if(w>=7)r.push(["Marche sur place",1,"Debout, une main sur un appui stable."]);return r}
+function ren(w){const n=w<7?1:2,p=w<5?6:w<9?8:10;
+return [["Échauffement assis",1,"Marche sur place assise, lentement."],["Flexions de coudes (1,5 kg)",2,n+" série(s) de "+p+" par bras. 3 s à la montée, 3 s à la descente. Repos entre séries."],["Cuisses (isométrique)",2,n+" série(s) de "+p+" contractions de 5 s, jambe tendue sans verrouiller le genou."],["Omoplates",1,n+" série(s) de "+p+" serrages doux, épaules basses."],["Respiration",1,"Ne bloquez jamais votre souffle pendant l’effort."]]}
+const TY={w:walk,m:mob,r:ren};
+function stages(w,t){return TY[t||"w"](w)}
+let S={done:{},fb:{},kg:[],cur:1};
+try{const x=localStorage.getItem("mw");if(x)S=Object.assign(S,JSON.parse(x))}catch(e){}
+function save(){try{localStorage.setItem("mw",JSON.stringify(S))}catch(e){}}
+const $=id=>document.getElementById(id);
+const tot=(w,t)=>stages(w,t).reduce((n,s)=>n+s[1],0);
+const wkDone=w=>["1","2","3"].every(s=>S.done[w+"-"+s]);
+function render(){
+$("wk").innerHTML=Array.from({length:12},(_,i)=>i+1).map(w=>`<button class="${w==S.cur?"on":""} ${wkDone(w)?"ok":""}" onclick="S.cur=${w};save();render()">S${w}${wkDone(w)?" ✓":""}</button>`).join("");
+const w=S.cur;let h=`<b>Semaine ${w}${LIGHT.includes(w)?" (allégée : récupération)":""} — marche ${tot(w)} min</b><table><tr><th>Étape</th><th>Durée</th><th>Vitesse</th></tr>`+walk(w).map(s=>`<tr><td>${s[0]}</td><td>${s[1]} min</td><td>${s[2].replace("Réglez le tapis à ","")}</td></tr>`).join("")+`</table><div class="warn" style="margin-top:6px">Si c’est trop rapide ou trop long, réduisez. Au moins un jour de repos entre deux marches. Semaine type : lun. marche · mar. mobilité · mer. marche · jeu. renforcement · sam. marche.</div>`;
+const bad=Object.keys(S.fb).some(k=>k.split("-")[0]==w&&/marquée|Très/.test(S.fb[k]));
+if(bad)h+=`<div class="card" style="border-color:#c58a1b">Une séance a été difficile. Restez à cette semaine ou à la précédente, et parlez-en à votre médecin ou kiné si la gêne dure.</div>`;
+const L=[["1","Marche 1","w"],["2","Marche 2","w"],["3","Marche 3","w"],["m1","Mobilité douce 1 · facultative","m"],["m2","Mobilité douce 2 · facultative","m"]];
+if(w>=3){L.push(["r1","Renforcement assis 1 · facultatif","r"],["r2","Renforcement assis 2 · facultatif","r"])}
+h+=`<div style="margin-top:8px">`+L.map(([s,t,ty])=>{const k=w+"-"+s,d=S.done[k],f=S.fb[k]||"";
+return `<div class="ses"><span>${d?"✅":"⬜"} ${t} <span class="mu">(${tot(w,ty)} min)</span>${f?`<br><span class="mu">${f}</span>`:""}</span><span class="row"><button class="s" onclick="start(${w},'${s}','${ty}')">▶</button><button class="s" onclick="tog('${k}')">${d?"↩":"Fait"}</button></span></div>`}).join("")+`</div>`;
+if(w>=3)h+=`<div class="warn" style="margin-top:6px">Renforcement : à faire seulement après accord de votre médecin ou kiné. Arrêtez à la moindre douleur articulaire.</div>`;
+$("plan").innerHTML=h;
+$("wl").innerHTML=S.kg.length?S.kg.slice(-8).map(x=>`${x[0]} : <b>${x[1]} kg</b>`).join("<br>"):"Aucune mesure"}
+function tog(k){S.done[k]=!S.done[k];save();render()}
+function addW(){const v=parseFloat($("kg").value);if(!v)return;S.kg.push([new Date().toLocaleDateString("fr-FR"),v]);$("kg").value="";save();render()}
+let T=null,wl=null;
+function start(w,s,ty){if(T)stop();const st=stages(w,ty);T={w,s,st,i:0,left:st[0][1]*60,pause:false};
+try{navigator.wakeLock&&navigator.wakeLock.request("screen").then(l=>wl=l).catch(()=>{})}catch(e){}
+$("timer").hidden=false;draw();T.id=setInterval(tick,1000);$("timer").scrollIntoView()}
+function tick(){if(!T||T.pause)return;T.left--;
+if(T.left<0){T.i++;if(T.i>=T.st.length)return end();T.left=T.st[T.i][1]*60;try{navigator.vibrate&&navigator.vibrate([300,150,300])}catch(e){}}draw()}
+function draw(){const s=T.st[T.i],m=Math.floor(T.left/60),sec=String(T.left%60).padStart(2,"0");
+$("timer").innerHTML=`<div class="mu">Semaine ${T.w} · étape ${T.i+1}/${T.st.length}</div><div><b>${s[0]}</b></div><div class="big">${m}:${sec}</div><div style="text-align:center;font-size:1.1rem">${s[2]}</div><div class="row" style="margin-top:10px;justify-content:center"><button onclick="T.pause=!T.pause;draw()">${T.pause?"Reprendre":"Pause"}</button><button class="s" onclick="T.left=0;tick()">Suivant</button><button class="s" onclick="stop()">Arrêter</button></div>`}
+function stop(){if(T)clearInterval(T.id);T=null;$("timer").hidden=true;if(wl){wl.release().catch(()=>{});wl=null}}
+function end(){const k=T.w+"-"+T.s;clearInterval(T.id);try{navigator.vibrate&&navigator.vibrate([500,200,500])}catch(e){}
+$("timer").innerHTML=`<b>Séance terminée 🎉</b><p>Comment vous sentez-vous ?</p><select id="p"><option>Aucune douleur</option><option>Douleur légère</option><option>Douleur marquée</option></select> <select id="f"><option>Fatigue faible</option><option>Fatigue moyenne</option><option>Très fatigué</option></select><p><button onclick="fin('${k}')">Enregistrer</button></p><div class="warn">Notez aussi votre état le lendemain : s’il se dégrade, restez à la même semaine.</div>`}
+function fin(k){S.done[k]=true;S.fb[k]=$("p").value+", "+$("f").value.toLowerCase();save();stop();render()}
+render();
+if("serviceWorker" in navigator){navigator.serviceWorker.register("sw.js").catch(()=>{})}
+</script></body></html>
