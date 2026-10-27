@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html lang="fr"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<link rel="manifest" href="manifest.webmanifest"><meta name="theme-color" content="#2e7d5b"><link rel="icon" href="icons/icon-192.png"><title>Mon programme marche</title>
+<link rel="manifest" href="manifest.webmanifest"><meta name="theme-color" content="#2e7d5b"><link rel="icon" href="Icons/icon-192.png">
+<title>Mon programme marche</title>
 <style>
 :root{--bg:#f6f7f4;--card:#fff;--tx:#1d2b24;--mu:#66756c;--ac:#2e7d5b;--ln:#dfe5e0;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#121915;--card:#1b251f;--tx:#e8efe9;--mu:#9bab9f;--ac:#4cc08b;--ln:#2c3a31}}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--tx);font:16px/1.45 system-ui,sans-serif;padding:14px;max-width:560px;margin:auto}
+*{box-sizing:border-box}body{margin:0 auto;background:var(--bg);color:var(--tx);font:16px/1.45 system-ui,sans-serif;padding:14px;max-width:560px}
 h1{font-size:1.3rem;margin:4px 0 2px}.mu{color:var(--mu);font-size:.9rem}
 .card{background:var(--card);border:1px solid var(--ln);border-radius:14px;padding:14px;margin:12px 0}
 button{font:inherit;border:0;border-radius:10px;padding:11px 14px;background:var(--ac);color:#fff;cursor:pointer}
@@ -15,65 +16,128 @@ button.s{background:transparent;color:var(--ac);border:1px solid var(--ac)}
 .wk button{flex:0 0 auto;padding:8px 12px;background:var(--card);color:var(--tx);border:1px solid var(--ln)}
 .wk button.on{background:var(--ac);color:#fff;border-color:var(--ac)}.wk button.ok{border-color:var(--ac)}
 table{width:100%;border-collapse:collapse;font-size:.95rem}td,th{padding:6px 4px;border-bottom:1px solid var(--ln);text-align:left}
-.big{font-size:3rem;font-weight:700;text-align:center;margin:4px 0}
-.ses{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid var(--ln)}
+.big{font-size:3rem;font-weight:700;text-align:center;margin:0}
+.ses{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:8px 0;border-bottom:1px solid var(--ln)}
 select,input{font:inherit;padding:8px;border-radius:8px;border:1px solid var(--ln);background:var(--bg);color:var(--tx)}
 .warn{font-size:.85rem;color:var(--mu)}
+.bar{height:16px;background:var(--ln);border-radius:8px;overflow:hidden;margin:8px 0}.bar i{display:block;height:100%;background:var(--ac)}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;text-align:center}.grid b{display:block;font-size:1.15rem}
+.g{border-top:1px solid var(--ln);padding:6px 0;text-align:center}
+.an{width:150px;height:150px;display:block;margin:6px auto;color:var(--tx)}
+summary{cursor:pointer;font-weight:600}
+@keyframes curl{0%,100%{transform:rotate(0)}50%{transform:rotate(-130deg)}}
+@keyframes ank{0%,100%{transform:rotate(-28deg)}50%{transform:rotate(28deg)}}
+@keyframes kn{0%,100%{transform:rotate(0)}50%{transform:rotate(-16deg)}}
+@keyframes sh{0%,100%{transform:translate(0,-4px)}25%{transform:translate(4px,0)}50%{transform:translate(0,4px)}75%{transform:translate(-4px,0)}}
+@keyframes nk{0%,100%{transform:rotate(-16deg)}50%{transform:rotate(16deg)}}
+@keyframes pl{0%,100%{opacity:.2;transform:scale(.8)}50%{opacity:1;transform:scale(1.15)}}
+@keyframes oL{0%,100%{transform:translateX(0)}50%{transform:translateX(9px)}}
+@keyframes oR{0%,100%{transform:translateX(0)}50%{transform:translateX(-9px)}}
+@keyframes lg{0%,100%{transform:rotate(-16deg)}50%{transform:rotate(16deg)}}
+@keyframes lg2{0%,100%{transform:rotate(16deg)}50%{transform:rotate(-16deg)}}
+@keyframes belt{to{stroke-dashoffset:-16}}
+@keyframes br{0%,100%{transform:scale(.55)}40%{transform:scale(1)}}
+@keyframes br2{0%,100%{transform:scale(.55)}50%{transform:scale(1)}}
+@keyframes ti{0%,38%{opacity:1}42%,100%{opacity:0}}
+@keyframes te{0%,38%{opacity:0}42%,98%{opacity:1}100%{opacity:0}}
+@keyframes ti2{0%,48%{opacity:1}52%,100%{opacity:0}}
+@keyframes te2{0%,48%{opacity:0}52%,98%{opacity:1}100%{opacity:0}}
+.curl{transform-origin:48px 68px;animation:curl 6s ease-in-out infinite}
+.ank{transform-origin:84px 106px;animation:ank 3s ease-in-out infinite}
+.kn{transform-origin:48px 78px;animation:kn 3s ease-in-out infinite}
+.sh{animation:sh 5s linear infinite}.nk{transform-origin:48px 42px;animation:nk 5s ease-in-out infinite}
+.pl{transform-origin:70px 70px;animation:pl 6s ease-in-out infinite}
+.oL{animation:oL 4s ease-in-out infinite}.oR{animation:oR 4s ease-in-out infinite}
+.lg{transform-origin:58px 68px;animation:lg 1.4s ease-in-out infinite}.lg2{transform-origin:58px 68px;animation:lg2 1.4s ease-in-out infinite}
+.belt{animation:belt .6s linear infinite}
+.rb{transform-origin:60px 58px;animation:br 10s ease-in-out infinite}.rb2{transform-origin:60px 58px;animation:br2 10s ease-in-out infinite}
+.ti{animation:ti 10s infinite}.te{animation:te 10s infinite}.ti2{animation:ti2 10s infinite}.te2{animation:te2 10s infinite}
+@media (prefers-reduced-motion:reduce){.an *{animation:none!important}}
 </style></head><body>
 <h1>🚶 Mon programme marche</h1>
-<div class="mu">12 semaines · 3 marches + séances douces facultatives · 0 % d’inclinaison</div>
+<div class="mu">Objectif : un marathon cumulé (42,195 km) · marches + exercices doux</div>
+<div class="card" id="bil"></div>
 <div class="wk" id="wk"></div>
 <div class="card" id="plan"></div>
 <div class="card" id="timer" hidden></div>
-<div class="card"><b>Poids hebdomadaire</b>
+<div class="card"><b>Poids</b>
 <div class="row" style="margin-top:8px"><input id="kg" type="number" step="0.1" placeholder="kg" style="width:90px"><button onclick="addW()">Ajouter</button></div>
 <div class="mu" id="wl" style="margin-top:8px"></div></div>
-<div class="card warn">Arrêtez la séance en cas de douleur articulaire nouvelle ou croissante, de palpitations, de vertiges ou d’essoufflement anormal. Douleur thoracique ou malaise : appelez le 15 ou le 112. Faites valider ce programme par votre médecin ou kinésithérapeute. Rester à la même semaine est toujours permis : ce n’est pas un échec.</div>
+<div class="card"><details><summary>📖 Guide des exercices (animés)</summary><div id="gd"></div></details></div>
+<div class="card warn">Arrêtez la séance en cas de douleur articulaire nouvelle ou croissante, de palpitations, de vertiges ou d’essoufflement anormal. Douleur thoracique ou malaise : appelez le 15 ou le 112. Faites valider ce programme par votre médecin ou kiné. Rester à la même semaine n’est jamais un échec. Distance et calories sont des estimations.</div>
 <script>
+const fr=x=>String(x).replace(".",","),f1=x=>(Math.round(x*10)/10).toFixed(1).replace(".",",");
+const WEEKS=24,LIGHT=[4,8,16,20,24],GOAL=42.195;
 const M=[[3,0],[4,2],[5,3],[4,2],[6,4],[7,5],[8,6],[6,4],[8,7],[9,8],[10,9],[11,10]];
-const LIGHT=[4,8];
-const fr=x=>String(x).replace(".",",");
-function walk(w){const [a,b]=M[w-1];const sa=w<=7?2:2.2,sb=w<=5?2.2:w<=8?2.4:w<=10?2.5:2.7;
-const r=[["Échauffement",2,"Réglez le tapis à 1,5 km/h"],["Marche tranquille",a,"Réglez le tapis à "+fr(sa)+" km/h"]];
-if(b)r.push(["Marche confortable",b,"Réglez le tapis à "+fr(sb)+" km/h"]);r.push(["Retour au calme",2,"Réglez le tapis à 1,5 km/h"]);return r}
-function mob(w){const r=[["Respiration calme (assis)",1,"Inspirez 4 s par le nez, expirez 6 s, dos soutenu."],["Chevilles",1,"Cercles lents, amplitude confortable, des deux côtés."],["Genoux assis",1,"Montées de genoux alternées, sans balancer."],["Épaules",1,"Petits cercles lents, sans aller en fin de course."],["Cou et dos",1,"Mouvement très doux, sans étirement forcé."]];
-if(w>=7)r.push(["Marche sur place",1,"Debout, une main sur un appui stable."]);return r}
-function ren(w){const n=w<7?1:2,p=w<5?6:w<9?8:10;
-return [["Échauffement assis",1,"Marche sur place assise, lentement."],["Flexions de coudes (1,5 kg)",2,n+" série(s) de "+p+" par bras. 3 s à la montée, 3 s à la descente. Repos entre séries."],["Cuisses (isométrique)",2,n+" série(s) de "+p+" contractions de 5 s, jambe tendue sans verrouiller le genou."],["Omoplates",1,n+" série(s) de "+p+" serrages doux, épaules basses."],["Respiration",1,"Ne bloquez jamais votre souffle pendant l’effort."]]}
-const TY={w:walk,m:mob,r:ren};
-function stages(w,t){return TY[t||"w"](w)}
-let S={done:{},fb:{},kg:[],cur:1};
+function Mw(w){let r;if(w<=12)r=M[w-1];else{const a=Math.min(14,11+Math.floor((w-11)/2));r=[a,a-1];if(LIGHT.includes(w))r=[a-2,a-3]}return r}
+const C='fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"',A='fill="none" stroke="var(--ac)" stroke-width="6" stroke-linecap="round"';
+const svg=b=>`<svg class="an" viewBox="0 0 120 120" role="img" aria-hidden="true">${b}</svg>`;
+const SB=`<path d="M28 40V108M28 80H84M84 108V80" fill="none" stroke="var(--mu)" stroke-width="3"/><path d="M48 42V78" ${C}/>`,HD=`<circle cx="48" cy="30" r="9" fill="currentColor"/>`,LG=`<path d="M48 78H84V106h10" ${C}/>`;
+const man=b=>`<circle cx="58" cy="22" r="9" fill="currentColor"/><path d="M58 34V68M58 42L46 58" ${C}/><g class="lg"><path d="M58 68V104" ${C}/></g><g class="lg2"><path d="M58 68V104" ${C}/></g>`+b;
+const rsp=(c,a,b)=>svg(`<circle class="${c}" cx="60" cy="58" r="36" fill="var(--ac)" fill-opacity=".25" stroke="var(--ac)" stroke-width="3"/><text class="${a}" x="60" y="62" text-anchor="middle" fill="currentColor" font-size="13">Inspirez</text><text class="${b}" x="60" y="62" text-anchor="middle" fill="currentColor" font-size="13">Expirez</text>`);
+const SV={resp:()=>rsp("rb","ti","te"),resp55:()=>rsp("rb2","ti2","te2"),
+curl:()=>svg(SB+HD+LG+`<path d="M48 48V68" ${C}/><g class="curl"><path d="M48 68V90" ${A}/><rect x="42" y="88" width="12" height="6" rx="2" fill="var(--ac)"/></g>`),
+ank:()=>svg(SB+HD+`<path d="M48 78H84V106" ${C}/><g class="ank"><path d="M84 106h12" ${A}/></g><circle cx="96" cy="106" r="10" fill="none" stroke="var(--mu)" stroke-dasharray="3 4"/>`),
+knee:()=>svg(SB+HD+`<g class="kn"><path d="M48 78H84V106h10" ${C}/></g>`),
+sh:()=>svg(SB+HD+`<g class="sh"><path d="M48 48V70" ${A}/></g>`+LG),
+neck:()=>svg(SB+`<g class="nk"><circle cx="48" cy="30" r="9" fill="currentColor"/></g>`+LG),
+iso:()=>svg(SB+HD+`<path d="M48 78H98" ${A}/><circle class="pl" cx="70" cy="70" r="12" fill="none" stroke="var(--ac)" stroke-width="3"/><text x="96" y="62" font-size="12" fill="currentColor">5 s</text>`),
+omo:()=>svg(`<circle cx="60" cy="24" r="9" fill="currentColor"/><path d="M60 36V92M36 46H84" ${C}/><g class="oL"><path d="M36 46L26 68L34 84" ${A}/></g><g class="oR"><path d="M84 46L94 68L86 84" ${A}/></g>`),
+mar:()=>svg(`<path d="M94 30V108" stroke="var(--mu)" stroke-width="3"/>`+man("")),
+tap:()=>svg(man(`<path class="belt" d="M14 108H102" stroke="var(--mu)" stroke-width="3" stroke-dasharray="8 8"/>`))};
+const GU=[["tap","Marche sur tapis","Dos droit, regard devant, pas réguliers. Inclinaison 0 %. Gardez une main près de la barre."],["resp","Respiration abdominale","Une main sur le ventre. Inspirez 4 s par le nez : le ventre se gonfle. Expirez 6 s, lentement."],["resp55","Cohérence cardiaque","Inspirez 5 s, expirez 5 s, sans forcer, pendant 3 minutes."],["curl","Flexion de coudes (haltère 1,5 kg)","Assis, coude contre le corps. 3 s à la montée, 3 s à la descente. Ne verrouillez pas le coude en bas."],["iso","Contraction des cuisses","Assis, jambe tendue sans verrouiller le genou. Serrez 5 s, relâchez. Respirez normalement."],["omo","Serrage des omoplates","Rapprochez doucement les omoplates, épaules basses, sans cambrer le dos."],["knee","Genoux assis","Montées de genoux alternées, lentes, sans balancer le buste."],["ank","Chevilles","Cercles lents, amplitude confortable, des deux côtés."],["sh","Épaules","Petits cercles lents, sans aller en fin de course."],["neck","Cou et dos","Rotations très douces de la tête, sans étirement forcé."],["mar","Marche sur place","Debout, une main sur un appui stable, genoux peu levés."]];
+function walk(w){const [a,b]=Mw(w),sa=w<=7?2:2.2,sb=w<=5?2.2:w<=8?2.4:w<=10?2.5:w<=12?2.7:w<=18?2.8:3,T="Réglez le tapis à ";
+const r=[["Échauffement",2,T+"1,5 km/h","tap",1.5],["Marche tranquille",a,T+fr(sa)+" km/h","tap",sa]];
+if(b>0)r.push(["Marche confortable",b,T+fr(sb)+" km/h","tap",sb]);r.push(["Retour au calme",2,T+"1,5 km/h","tap",1.5]);return r}
+const mob=w=>{const r=[["Respiration calme (assis)",1,"Inspirez 4 s, expirez 6 s, dos soutenu.","resp"],["Chevilles",1,"Cercles lents, amplitude confortable.","ank"],["Genoux assis",1,"Montées de genoux alternées, sans balancer.","knee"],["Épaules",1,"Petits cercles lents, sans fin de course.","sh"],["Cou et dos",1,"Mouvement très doux, sans étirement forcé.","neck"]];if(w>=7)r.push(["Marche sur place",1,"Debout, une main sur un appui stable.","mar"]);return r};
+const ren=w=>{const n=w<7?1:2,p=w<5?6:w<9?8:10;return [["Échauffement assis",1,"Genoux alternés, lentement.","knee"],["Flexions de coudes (1,5 kg)",2,n+" série(s) de "+p+" par bras. 3 s montée, 3 s descente.","curl"],["Cuisses (isométrique)",2,n+" série(s) de "+p+" contractions de 5 s, genou non verrouillé.","iso"],["Omoplates",1,n+" série(s) de "+p+" serrages doux, épaules basses.","omo"],["Respiration",1,"Ne bloquez jamais votre souffle pendant l’effort.","resp"]]};
+const bre=w=>[["Respiration abdominale",2,"Main sur le ventre. Inspirez 4 s, expirez 6 s.","resp"],["Cohérence cardiaque 5/5",3,"Inspirez 5 s, expirez 5 s, calmement.","resp55"]];
+const TY={w:walk,m:mob,r:ren,b:bre},LAB={w:"Marche",m:"Mobilité",r:"Renforcement",b:"Respiration"},IC={w:"🚶",m:"🧘",r:"💪",b:"🌬️"},NET={w:1,m:1,r:1.8,b:.3};
+let S={log:{},fb:{},kg:[],cur:1,done:{}};
 try{const x=localStorage.getItem("mw");if(x)S=Object.assign(S,JSON.parse(x))}catch(e){}
 function save(){try{localStorage.setItem("mw",JSON.stringify(S))}catch(e){}}
-const $=id=>document.getElementById(id);
-const tot=(w,t)=>stages(w,t).reduce((n,s)=>n+s[1],0);
-const wkDone=w=>["1","2","3"].every(s=>S.done[w+"-"+s]);
-function render(){
-$("wk").innerHTML=Array.from({length:12},(_,i)=>i+1).map(w=>`<button class="${w==S.cur?"on":""} ${wkDone(w)?"ok":""}" onclick="S.cur=${w};save();render()">S${w}${wkDone(w)?" ✓":""}</button>`).join("");
-const w=S.cur;let h=`<b>Semaine ${w}${LIGHT.includes(w)?" (allégée : récupération)":""} — marche ${tot(w)} min</b><table><tr><th>Étape</th><th>Durée</th><th>Vitesse</th></tr>`+walk(w).map(s=>`<tr><td>${s[0]}</td><td>${s[1]} min</td><td>${s[2].replace("Réglez le tapis à ","")}</td></tr>`).join("")+`</table><div class="warn" style="margin-top:6px">Si c’est trop rapide ou trop long, réduisez. Au moins un jour de repos entre deux marches. Semaine type : lun. marche · mar. mobilité · mer. marche · jeu. renforcement · sam. marche.</div>`;
-const bad=Object.keys(S.fb).some(k=>k.split("-")[0]==w&&/marquée|Très/.test(S.fb[k]));
-if(bad)h+=`<div class="card" style="border-color:#c58a1b">Une séance a été difficile. Restez à cette semaine ou à la précédente, et parlez-en à votre médecin ou kiné si la gêne dure.</div>`;
+const $=id=>document.getElementById(id),today=()=>new Date().toISOString().slice(0,10);
+const wt=()=>S.kg.length?S.kg[S.kg.length-1][1]:70;
+function plan(w,ty){const st=TY[ty](w),t=st.reduce((n,s)=>n+s[1],0),km=st.reduce((n,s)=>n+(s[4]?s[1]*s[4]/60:0),0);return {t,km,kc:Math.round(NET[ty]*wt()*t/60)}}
+for(const k in S.done)if(S.done[k]&&!S.log[k]){const w=+k.split("-")[0],ty=/-m/.test(k)?"m":/-r/.test(k)?"r":"w";S.log[k]=Object.assign({w,ty,d:"",ts:0},plan(w,ty))}S.done={};
+const wkDone=w=>["1","2","3"].every(s=>S.log[w+"-"+s]);
+const sum=f=>Object.values(S.log).filter(f).reduce((a,l)=>({n:a.n+1,t:a.t+l.t,km:a.km+l.km,kc:a.kc+l.kc}),{n:0,t:0,km:0,kc:0});
+const st=(x,ty)=>`${x.t} min${ty=="w"?" · "+f1(x.km)+" km":""} · ${x.kc} kcal`;
+function bilan(){const a=sum(()=>true),pc=Math.min(100,a.km/GOAL*100),ds=Object.values(S.log).map(l=>l.d).filter(Boolean).sort();let ph="";
+if(a.km>0&&a.km<GOAL&&ds.length){const days=Math.max(7,(Date.now()-new Date(ds[0]))/864e5),rate=a.km/days*7,wk=(GOAL-a.km)/rate;if(wk<300)ph=`À ce rythme (${f1(rate)} km/semaine), marathon cumulé vers ${new Date(Date.now()+wk*7*864e5).toLocaleDateString("fr-FR",{month:"long",year:"numeric"})}.`}
+const ms=[[10,"10 km"],[21.0975,"semi"],[GOAL,"marathon"]].map(m=>(a.km>=m[0]?"✅ ":"⬜ ")+m[1]).join(" · ");
+const hist=Object.entries(S.log).sort((x,y)=>(y[1].ts||0)-(x[1].ts||0)).slice(0,8).map(([k,l])=>`<div class="mu">${l.d?new Date(l.d).toLocaleDateString("fr-FR",{day:"numeric",month:"short"})+" · ":""}${IC[l.ty]} S${l.w} · ${st(l,l.ty)}</div>`).join("");
+$("bil").innerHTML=`<b>🏅 Objectif marathon : ${f1(a.km)} / 42,2 km</b><div class="bar"><i style="width:${pc}%"></i></div><div class="mu">${ms}</div><div class="warn">Marathon cumulé : 42,195 km de marche additionnés sur toutes vos séances, pas en une seule fois.</div><div class="grid" style="margin-top:10px"><div><b>${a.n}</b>séances</div><div><b>${a.t}</b>min</div><div><b>${f1(a.km)}</b>km</div><div><b>${a.kc}</b>kcal</div></div>${ph?`<div class="mu" style="margin-top:8px">${ph}</div>`:""}${hist?`<div style="margin-top:8px"><b>Dernières séances</b>${hist}</div>`:""}`}
+function render(){bilan();
+$("wk").innerHTML=Array.from({length:WEEKS},(_,i)=>i+1).map(w=>`<button class="${w==S.cur?"on":""} ${wkDone(w)?"ok":""}" onclick="S.cur=${w};save();render()">S${w}${wkDone(w)?" ✓":""}</button>`).join("");
+const w=S.cur,P=plan(w,"w"),ws=sum(l=>l.w==w);
+let h=`<b>Semaine ${w}${LIGHT.includes(w)?" (allégée : récupération)":""} — marche ${P.t} min · ${f1(P.km)} km</b><table><tr><th>Étape</th><th>Durée</th><th>Vitesse</th></tr>`+walk(w).map(s=>`<tr><td>${s[0]}</td><td>${s[1]} min</td><td>${fr(s[4])} km/h</td></tr>`).join("")+`</table><div class="warn" style="margin-top:6px">Au moins un jour de repos entre deux marches. Semaine type : lun. marche · mar. mobilité · mer. marche · jeu. renforcement · sam. marche.</div>`;
+if(ws.n)h+=`<div class="mu" style="margin-top:6px">Cette semaine : ${ws.n} séance(s) · ${ws.t} min · ${f1(ws.km)} km · ${ws.kc} kcal</div>`;
+if(Object.keys(S.fb).some(k=>S.log[k]&&S.log[k].w==w&&/marquée|Très/.test(S.fb[k])))h+=`<div class="card" style="border-color:#c58a1b">Une séance a été difficile. Restez à cette semaine ou à la précédente, et parlez-en à votre médecin ou kiné si la gêne dure.</div>`;
 const L=[["1","Marche 1","w"],["2","Marche 2","w"],["3","Marche 3","w"],["m1","Mobilité douce 1 · facultative","m"],["m2","Mobilité douce 2 · facultative","m"]];
-if(w>=3){L.push(["r1","Renforcement assis 1 · facultatif","r"],["r2","Renforcement assis 2 · facultatif","r"])}
-h+=`<div style="margin-top:8px">`+L.map(([s,t,ty])=>{const k=w+"-"+s,d=S.done[k],f=S.fb[k]||"";
-return `<div class="ses"><span>${d?"✅":"⬜"} ${t} <span class="mu">(${tot(w,ty)} min)</span>${f?`<br><span class="mu">${f}</span>`:""}</span><span class="row"><button class="s" onclick="start(${w},'${s}','${ty}')">▶</button><button class="s" onclick="tog('${k}')">${d?"↩":"Fait"}</button></span></div>`}).join("")+`</div>`;
-if(w>=3)h+=`<div class="warn" style="margin-top:6px">Renforcement : à faire seulement après accord de votre médecin ou kiné. Arrêtez à la moindre douleur articulaire.</div>`;
+if(w>=3)L.push(["r1","Renforcement assis 1 · facultatif","r"],["r2","Renforcement assis 2 · facultatif","r"]);L.push(["b1","Respiration & détente · facultative","b"]);
+h+=`<div style="margin-top:8px">`+L.map(([s,t,ty])=>{const k=w+"-"+s,l=S.log[k],p=plan(w,ty);
+return `<div class="ses"><span>${l?"✅":"⬜"} ${IC[ty]} ${t}<br><span class="mu">${l?"":"prévu : "}${st(l||p,ty)}${l&&S.fb[k]?" · "+S.fb[k]:""}</span></span><span class="row"><button class="s" onclick="start(${w},'${s}','${ty}')">▶</button><button class="s" onclick="tog('${k}',${w},'${ty}')">${l?"↩":"Fait"}</button></span></div>`}).join("")+`</div>`;
+if(w>=3)h+=`<div class="warn" style="margin-top:6px">Renforcement : seulement après accord de votre médecin ou kiné. Arrêtez à la moindre douleur articulaire.</div>`;
 $("plan").innerHTML=h;
-$("wl").innerHTML=S.kg.length?S.kg.slice(-8).map(x=>`${x[0]} : <b>${x[1]} kg</b>`).join("<br>"):"Aucune mesure"}
-function tog(k){S.done[k]=!S.done[k];save();render()}
+$("wl").innerHTML=(S.kg.length?S.kg.slice(-6).map(x=>`${x[0]} : <b>${x[1]} kg</b>`).join("<br>"):"Aucune mesure")+`<br>Calories calculées avec ${wt()} kg${S.kg.length?"":" (valeur par défaut : saisissez votre poids)"}.`}
+function tog(k,w,ty){if(S.log[k]){delete S.log[k];delete S.fb[k]}else S.log[k]=Object.assign({w,ty,d:today(),ts:Date.now()},plan(w,ty));save();render()}
 function addW(){const v=parseFloat($("kg").value);if(!v)return;S.kg.push([new Date().toLocaleDateString("fr-FR"),v]);$("kg").value="";save();render()}
 let T=null,wl=null;
-function start(w,s,ty){if(T)stop();const st=stages(w,ty);T={w,s,st,i:0,left:st[0][1]*60,pause:false};
+function start(w,s,ty){if(T)stop();const sg=TY[ty](w);T={w,s,ty,st:sg,i:0,left:sg[0][1]*60,pause:false,plan:plan(w,ty)};
 try{navigator.wakeLock&&navigator.wakeLock.request("screen").then(l=>wl=l).catch(()=>{})}catch(e){}
 $("timer").hidden=false;draw();T.id=setInterval(tick,1000);$("timer").scrollIntoView()}
 function tick(){if(!T||T.pause)return;T.left--;
 if(T.left<0){T.i++;if(T.i>=T.st.length)return end();T.left=T.st[T.i][1]*60;try{navigator.vibrate&&navigator.vibrate([300,150,300])}catch(e){}}draw()}
 function draw(){const s=T.st[T.i],m=Math.floor(T.left/60),sec=String(T.left%60).padStart(2,"0");
-$("timer").innerHTML=`<div class="mu">Semaine ${T.w} · étape ${T.i+1}/${T.st.length}</div><div><b>${s[0]}</b></div><div class="big">${m}:${sec}</div><div style="text-align:center;font-size:1.1rem">${s[2]}</div><div class="row" style="margin-top:10px;justify-content:center"><button onclick="T.pause=!T.pause;draw()">${T.pause?"Reprendre":"Pause"}</button><button class="s" onclick="T.left=0;tick()">Suivant</button><button class="s" onclick="stop()">Arrêter</button></div>`}
+$("timer").innerHTML=`<div class="mu">Semaine ${T.w} · étape ${T.i+1}/${T.st.length}</div><div><b>${s[0]}</b></div>${SV[s[3]]()}<div class="big">${m}:${sec}</div><div style="text-align:center">${s[2]}</div><div class="row" style="margin-top:10px;justify-content:center"><button onclick="T.pause=!T.pause;draw()">${T.pause?"Reprendre":"Pause"}</button><button class="s" onclick="T.left=0;tick()">Suivant</button><button class="s" onclick="stop()">Arrêter</button></div>`}
 function stop(){if(T)clearInterval(T.id);T=null;$("timer").hidden=true;if(wl){wl.release().catch(()=>{});wl=null}}
-function end(){const k=T.w+"-"+T.s;clearInterval(T.id);try{navigator.vibrate&&navigator.vibrate([500,200,500])}catch(e){}
-$("timer").innerHTML=`<b>Séance terminée 🎉</b><p>Comment vous sentez-vous ?</p><select id="p"><option>Aucune douleur</option><option>Douleur légère</option><option>Douleur marquée</option></select> <select id="f"><option>Fatigue faible</option><option>Fatigue moyenne</option><option>Très fatigué</option></select><p><button onclick="fin('${k}')">Enregistrer</button></p><div class="warn">Notez aussi votre état le lendemain : s’il se dégrade, restez à la même semaine.</div>`}
-function fin(k){S.done[k]=true;S.fb[k]=$("p").value+", "+$("f").value.toLowerCase();save();stop();render()}
+function end(){clearInterval(T.id);try{navigator.vibrate&&navigator.vibrate([500,200,500])}catch(e){}
+$("timer").innerHTML=`<b>Séance terminée 🎉</b><p class="mu">Calculé : ${st(T.plan,T.ty)}</p>`+(T.ty=="w"?`<div class="row"><input id="km" inputmode="decimal" placeholder="Distance tapis (km)" style="width:48%"><input id="kc" inputmode="decimal" placeholder="Calories tapis" style="width:48%"></div><div class="warn">Facultatif : saisissez les valeurs affichées par votre tapis pour remplacer le calcul.</div>`:"")+`<p>Comment vous sentez-vous ?</p><select id="p"><option>Aucune douleur</option><option>Douleur légère</option><option>Douleur marquée</option></select> <select id="f"><option>Fatigue faible</option><option>Fatigue moyenne</option><option>Très fatigué</option></select><p><button onclick="fin()">Enregistrer</button></p><div class="warn">Notez aussi votre état le lendemain : s’il se dégrade, restez à la même semaine.</div>`}
+function fin(){const p=T.plan,k=T.w+"-"+T.s,v=x=>{const e=$(x);if(!e)return null;const n=parseFloat(String(e.value).replace(",","."));return isNaN(n)?null:n},km=v("km"),kc=v("kc");
+S.log[k]={w:T.w,ty:T.ty,t:p.t,km:km!=null?km:p.km,kc:kc!=null?Math.round(kc):p.kc,d:today(),ts:Date.now()};
+S.fb[k]=$("p").value+", "+$("f").value.toLowerCase();save();stop();render()}
+$("gd").innerHTML=GU.map(g=>`<div class="g">${SV[g[0]]()}<b>${g[1]}</b><div class="mu">${g[2]}</div></div>`).join("");
 render();
 if("serviceWorker" in navigator){navigator.serviceWorker.register("sw.js").catch(()=>{})}
 </script></body></html>
